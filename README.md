@@ -169,8 +169,6 @@ Além dos métodos que serão mencionados posteriormente, você pode executar o 
 
     - Clique duas vezes no arquivo executável (.exe).
 
-    - OBS: é possível que o Windows acuse erroneamente o executável como uma ameaça, mas isso é pelo fato que o icon do executável foi alterado.
-
 ### Passos para Linux
 
 1. Baixe o arquivo ZIP:
