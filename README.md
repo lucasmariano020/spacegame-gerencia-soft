@@ -191,6 +191,8 @@ Além dos métodos que serão mencionados posteriormente, você pode executar o 
 
     - Abra o terminal na pasta e execute `./Space-Game-setup` para rodar o binário.
 
+    - OBS: caso dê permissão negada, execute o seguinte comando `chmod +x Space-Game-setup` para poder dar a permissão de execução ao arquivo binário.
+
 ---
 
 ### Buildando o projeto no Windows utilizando o VSCODE
