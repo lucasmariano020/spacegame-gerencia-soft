@@ -22,21 +22,30 @@ public class SoundManager {
     private int currentTrackIndex = 0;
 
     public void loadSounds() {
-        menu_music = Gdx.audio.newMusic(Gdx.files.internal("assets\\musics\\menu\\Echoes of the Last Stand.mp3"));
-        gameover_music = Gdx.audio.newMusic(Gdx.files.internal("assets\\musics\\gameover\\gameover.mp3"));
+        menu_music = Gdx.audio.newMusic(Gdx.files.internal("musics/menu/Echoes of the Last Stand.mp3"));
+        gameover_music = Gdx.audio.newMusic(Gdx.files.internal("musics/gameover/gameover.mp3"));
 
-        bulletSound = Gdx.audio.newSound(Gdx.files.internal("assets\\sounds\\Spaceshipshot.wav")); 
-        hitAlienSound = Gdx.audio.newSound(Gdx.files.internal("assets\\sounds\\hitAlien.wav")); 
-        hitDeadAlienSound = Gdx.audio.newSound(Gdx.files.internal("assets\\sounds\\hitDeadAlien.wav")); 
+        bulletSound = Gdx.audio.newSound(Gdx.files.internal("sounds/Spaceshipshot.wav")); 
+        hitAlienSound = Gdx.audio.newSound(Gdx.files.internal("sounds/hitAlien.wav")); 
+        hitDeadAlienSound = Gdx.audio.newSound(Gdx.files.internal("sounds/hitDeadAlien.wav")); 
     }
 
     public void loadMusics() {
         // Carregar a pasta de músicas
-        FileHandle musicFolder = Gdx.files.internal("assets\\musics\\playing\\");
+        FileHandle musicFolder = Gdx.files.internal("musics/playing");
         FileHandle[] musicFiles = musicFolder.list(".mp3");
+
+        if (musicFiles == null || musicFiles.length == 0) {
+            System.out.println("1 > No music files found in the folder.");
+            return;
+        } else {
+            System.out.println("Found music files in the folder.");
+            System.out.println(musicFiles.length);
+        }
 
         playlist = new ArrayList<>();
         for (FileHandle file : musicFiles) {
+            System.out.println("Found music file: " + file.path());
             Music music = Gdx.audio.newMusic(file);
             music.setOnCompletionListener(new Music.OnCompletionListener() {
                 @Override

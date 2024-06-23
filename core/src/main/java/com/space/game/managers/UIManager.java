@@ -30,7 +30,7 @@ public class UIManager {
     }
 
     private void initializeFonts() {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("assets\\fonts\\nasalization-rg.otf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/nasalization-rg.otf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
         float scaleFactor = ConfigUtils.calcularFatorDeEscala();

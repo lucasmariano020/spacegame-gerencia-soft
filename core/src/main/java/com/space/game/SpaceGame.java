@@ -13,7 +13,6 @@ public class SpaceGame extends ApplicationAdapter {
         Gdx.input.setCursorCatched(true);
         game = new Game();
     }
-
     @Override
     public void render() {
         game.render();

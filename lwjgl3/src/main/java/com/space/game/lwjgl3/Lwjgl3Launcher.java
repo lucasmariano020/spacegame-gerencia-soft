@@ -27,7 +27,7 @@ public class Lwjgl3Launcher {
         // configuration.setWindowedMode(640, 480);
         // configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
         configuration.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
-        configuration.setWindowIcon("assets\\images\\spaceships\\spaceship.png");
+        configuration.setWindowIcon("images/spaceships/spaceship.png");
 
         return configuration;
     }
