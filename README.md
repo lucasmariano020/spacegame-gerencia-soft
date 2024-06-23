@@ -2,6 +2,10 @@
 
 [Download Windows](#passos-para-windows)
 
+[Download Linux](#passos-para-linux)
+
+[Build Procedures](#buildando-o-projeto-no-windows-utilizando-o-vscode)
+
 ## Grupo 05
 
 - Eduardo Ribeiro Rodrigues - 13696679
