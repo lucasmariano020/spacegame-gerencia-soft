@@ -5,6 +5,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.audio.Music;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +35,7 @@ public class SoundManager {
     public void loadMusics() {
         // Carregar a pasta de músicas
         FileHandle musicFolder = Gdx.files.internal("musics/playing");
-        FileHandle[] musicFiles = musicFolder.list(".mp3");
+        FileHandle[] musicFiles = musicFolder.list();
 
         if (musicFiles == null || musicFiles.length == 0) {
             System.out.println("1 > No music files found in the folder.");
@@ -45,8 +47,14 @@ public class SoundManager {
 
         playlist = new ArrayList<>();
         for (FileHandle file : musicFiles) {
-            System.out.println("Found music file: " + file.path());
-            Music music = Gdx.audio.newMusic(file);
+            System.out.println("> Found music file: " + file.path());
+
+            // Use o método file() para obter um arquivo temporário interno
+            File musicFile = file.file();
+
+            // Use Gdx.audio.newMusic com o arquivo temporário para carregar a música
+            Music music = Gdx.audio.newMusic(Gdx.files.absolute(musicFile.getAbsolutePath()));
+
             music.setOnCompletionListener(new Music.OnCompletionListener() {
                 @Override
                 public void onCompletion(Music music) {
@@ -55,14 +63,13 @@ public class SoundManager {
             });
             playlist.add(music);
         }
-        
+
         // Embaralhar a playlist para tocar músicas aleatoriamente
         Collections.shuffle(playlist);
 
         if (!playlist.isEmpty()) {
             currentTrackIndex = 0;
         }
-
     }
 
     public void playNextTrack() {
