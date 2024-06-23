@@ -139,9 +139,7 @@ Certifique-se de ter os seguintes softwares instalados:
 
 [Git](https://git-scm.com/)
 
-[Gradle](https://gradle.org/releases/)
-
-IntelliJ IDEA ou Eclipse (opcional, mas recomendado)
+[VSCode](https://code.visualstudio.com/)
 
 ---
 
@@ -173,11 +171,31 @@ Além dos métodos que serão mencionados posteriormente, você pode executar o 
 
     - OBS: é possível que o Windows acuse erroneamente o executável como uma ameaça, mas isso é pelo fato que o icon do executável foi alterado.
 
+### Passos para Linux
+
+1. Baixe o arquivo ZIP:
+
+    - Vá para a página de [releases do repositório GitHub](https://github.com/EduardoWS/Space-Game-Java/releases).
+
+    - Baixe o arquivo ZIP mais recente.
+
+2. Extraia o arquivo ZIP:
+
+    - Navegue até a pasta onde o ZIP foi baixado.
+
+    - Escolha um local para extrair os arquivos.
+
+3. Execute o jogo:
+
+    - Navegue até a pasta onde os arquivos foram extraídos.
+
+    - Abra o terminal na pasta e execute `./Space-Game-setup` para rodar o binário.
+
 ---
 
 ### Buildando o projeto no Windows utilizando o VSCODE
 
-1. Instale o JDK:
+1. Instale o JDK 17:
 
     - Baixe o JDK do site oficial da Oracle (ou de qualquer outro distribuidor e siga as instruções de instalação.
 
@@ -200,7 +218,7 @@ Além dos métodos que serão mencionados posteriormente, você pode executar o 
 
     - Execute clicando no botão "Run" do VSCODE.
 
-### Buildando o projeto no Linux
+### Buildando o projeto no Linux utilizando o VSCODE
 
 1. Instale o JDK:
 
@@ -225,21 +243,7 @@ Além dos métodos que serão mencionados posteriormente, você pode executar o 
     sudo apt install git
     ```
 
-3. Instale o Gradle:
-
-    - No terminal, execute:
-
-    ```bash
-    sudo apt install gradle
-    ```
-
-    - Verifique a instalação com:
-
-    ```bash
-    gradle -v
-    ```
-
-4. Clone o repositório do GitHub:
+3. Clone o repositório do GitHub:
 
     - No terminal, execute:
 
@@ -248,45 +252,26 @@ Além dos métodos que serão mencionados posteriormente, você pode executar o 
     cd Space-Game-Java
     ```
 
-5. Build do projeto:
+4. Build do projeto:
 
-    - No terminal, dentro do diretório do projeto, execute:
+    - Instale o plugin do Gradle no VSCODE.
 
-    ```bash
-    gradle build
-    ```
+    - Vai aparecer o ícone do Gradle ao lado:
 
-6. Executar o jogo:
+    ![image](https://github.com/EduardoWS/Space-Game-Java/assets/81593054/f40d9eb7-c520-4a63-b41e-f3c6e09e97ff)
 
-    - Ainda no terminal, execute:
+    - Vá em lwjgl3 > tasks > build e execute o `build`:
 
-    ```
-    gradle desktop:run
-    ```
+    ![image](https://github.com/EduardoWS/Space-Game-Java/assets/81593054/593f4b2d-5656-4203-a273-a60c259f79a2)
+
+
+5. Executar o jogo:
+
+   - Para executar o projeto, basta ir em lwjgl3 > application e executar o `run`:
+
+   ![image](https://github.com/EduardoWS/Space-Game-Java/assets/81593054/3ebaeeaf-1e92-40e7-a4fa-d7b447eef33d)
 
 ---
-
-### Configuração do Ambiente (opcional, mas recomendado)
-
-Para um desenvolvimento mais conveniente, você pode usar um IDE como IntelliJ IDEA ou Eclipse:
-
-1. IntelliJ IDEA:
-
-    - Abra o IntelliJ IDEA.
-
-    - Selecione `File > Open` e escolha o diretório do projeto.
-
-    - IntelliJ irá detectar o projeto Gradle automaticamente. Clique em `Import Gradle Project`.
-
-2. Eclipse:
-
-    - Abra o Eclipse.
-
-    - Selecione `File > Import`.
-
-    - Escolha `Gradle > Existing Gradle Project` e clique em `Next`.
-
-    - Selecione o diretório do projeto e clique em `Finish`.
 
 ## Problems
 
