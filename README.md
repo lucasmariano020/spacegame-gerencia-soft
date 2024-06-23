@@ -212,11 +212,24 @@ Além dos métodos que serão mencionados posteriormente, você pode executar o 
     cd Space-Game-Java
     ```
 
-5. Build e Run do projeto:
+5. Build do projeto:
 
-    - Abra qualquer arquivo do projeto, como o SpaceGame.java ou o Game.java
+    - Instale o plugin do Gradle no VSCODE.
 
-    - Execute clicando no botão "Run" do VSCODE.
+    - Vai aparecer o ícone do Gradle ao lado:
+
+    ![image](https://github.com/EduardoWS/Space-Game-Java/assets/81593054/f40d9eb7-c520-4a63-b41e-f3c6e09e97ff)
+
+    - Vá em lwjgl3 > tasks > build e execute o `build`:
+
+    ![image](https://github.com/EduardoWS/Space-Game-Java/assets/81593054/593f4b2d-5656-4203-a273-a60c259f79a2)
+
+
+6. Executar o jogo:
+
+   - Para executar o projeto, basta ir em lwjgl3 > application e executar o `run`:
+
+   ![image](https://github.com/EduardoWS/Space-Game-Java/assets/81593054/3ebaeeaf-1e92-40e7-a4fa-d7b447eef33d)
 
 ### Buildando o projeto no Linux utilizando o VSCODE
 
