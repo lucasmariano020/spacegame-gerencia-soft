@@ -202,7 +202,7 @@ Além dos métodos que serão mencionados posteriormente, você pode executar o 
 
 1. Instale o JDK 17:
 
-    - Baixe o JDK do site oficial da Oracle (ou de qualquer outro distribuidor e siga as instruções de instalação.
+    - Baixe o JDK do site oficial da Oracle (ou de qualquer outro distribuidor) e siga as instruções de instalação.
 
     - Após a instalação, configure a variável de ambiente JAVA_HOME para apontar para o diretório de instalação do JDK. E configure o Path para apontar ou para o JAVA_HOME ou para a pasta bin dentro da pasta JDK.
 
