@@ -1,6 +1,6 @@
 # Space Game ![Planeta1](https://github.com/EduardoWS/Space-Game-Java/assets/81593054/eaae488a-c5fa-4b93-8a1d-bb41349b08be)
 
-[Download Windows](passos-para-windows)
+[Download Windows](#passos-para-windows)
 
 ## Grupo 05
 
