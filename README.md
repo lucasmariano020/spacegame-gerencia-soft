@@ -175,23 +175,17 @@ Além dos métodos que serão mencionados posteriormente, você pode executar o 
 
 ---
 
-### Buildando o projeto no Windows
+### Buildando o projeto no Windows utilizando o VSCODE
 
 1. Instale o JDK:
 
-    - Baixe o JDK do site oficial da Oracle e siga as instruções de instalação.
+    - Baixe o JDK do site oficial da Oracle (ou de qualquer outro distribuidor e siga as instruções de instalação.
 
     - Após a instalação, configure a variável de ambiente JAVA_HOME para apontar para o diretório de instalação do JDK. E configure o Path para apontar ou para o JAVA_HOME ou para a pasta bin dentro da pasta JDK.
 
-2. Instale o Git:
+2. Instale o Git caso ainda não tenha:
 
     - Baixe o Git do site oficial e siga as instruções de instalação.
-
-3. Instale o Gradle:
-
-    - Baixe o Gradle do site oficial e siga as instruções de instalação.
-
-    - Adicione o caminho do Gradle à variável de ambiente PATH.
 
 4. Clone o repositório do GitHub:
 
@@ -200,23 +194,11 @@ Além dos métodos que serão mencionados posteriormente, você pode executar o 
     cd Space-Game-Java
     ```
 
-5. Build do projeto:
+5. Build e Run do projeto:
 
-    - No terminal, dentro do diretório do projeto, execute:
+    - Abra qualquer arquivo do projeto, como o SpaceGame.java ou o Game.java
 
-    ```bash
-    gradle build
-    ```
-
-6. Executar o jogo:
-
-    - Ainda no terminal, execute:
-
-    ```bash
-    gradle desktop:run
-    ```
-
----
+    - Execute clicando no botão "Run" do VSCODE.
 
 ### Buildando o projeto no Linux
 
