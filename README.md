@@ -42,6 +42,8 @@
 
 - No menu principal, é possível ver uma lista dos melhores jogadores e suas pontuações. As pontuações são salvas em um arquivo CSV, mantendo sempre apenas as 10 melhores pontuações.
 
+- v1.3.0: agora é possível ver os scores globais e os scores locais. Os globais são armazenados em um banco de dados mongodb que está hospedado no mongodb atlas.
+
 ## Descrição do Projeto
 
 O projeto (Engine do jogo) é organizado da seguinte forma:
