@@ -31,7 +31,7 @@ import static com.mongodb.client.model.Filters.eq;
 public class ScoreManager {
 
     // pegar password no drive
-    private static final String CONNECTION_STRING = "mongodb+srv://eduardows:C3IPLsnsQHehKCWm@cluster0.bt0tzst.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+    private static final String CONNECTION_STRING = "mongodb+srv://eduardows:<password>@cluster0.bt0tzst.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
     private static final String DATABASE_NAME = "game_database";
     private static final String COLLECTION_NAME = "scores";
     private static final String FILE_PATH = "data/scores.csv";
