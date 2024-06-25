@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Rectangle;
 public class Spaceship{
     private Texture texture;
     private int ammunitions;
+    private int streak;
+    private int consecutiveKills;
     private int kills;
     private BulletManager bulletManager;
     private float angle = 0;
@@ -31,6 +33,8 @@ public class Spaceship{
         x_nave = SpaceGame.getGame().getWorldWidth()/2f - texture.getWidth()*scale / 2f  ;
         y_nave = SpaceGame.getGame().getWorldHeight()/2f - texture.getHeight()*scale / 2f ;
         position = new Vector2(x_nave, y_nave);
+
+        this.consecutiveKills = 0;
         
         // ammunitions = 49;
         // kills = 0;
@@ -39,7 +43,11 @@ public class Spaceship{
     }
 
     public void incrementKillCount() {
-        kills++;
+        if (this.streak != 1) {
+            this.kills = this.kills + this.streak;
+        } else {
+            this.kills++;
+        }
     }
 
     public int getKillCount() {
@@ -48,6 +56,30 @@ public class Spaceship{
 
     public void setKillCount(int kills) {
         this.kills = kills;
+    }
+
+    public void incrementStreakCount() {
+        this.streak++;
+    }
+
+    public void setStreakCount(int streak) {
+        this.streak = streak;
+    }
+
+    public int getStreakCount() {
+        return streak;
+    }
+
+    public void incrementCosecutiveKills() {
+        this.consecutiveKills++;
+    }
+
+    public void setConsecutiveKills(int consecutiveKills) {
+        this.consecutiveKills = consecutiveKills;
+    }
+
+    public int getConsecutiveKills() {
+        return consecutiveKills;
     }
 
     public void fire() {

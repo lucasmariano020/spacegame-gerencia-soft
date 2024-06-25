@@ -26,6 +26,10 @@ public class GameOverState implements GameStateInterface {
     private boolean showCursor = true;  // Variável para alternar a exibição do cursor
     private ScoreManager scoreManager;
     Map<Integer, String> keyToCharMap;
+    private int whatHighScore;
+
+    private float gameoverTimer = 0;
+    private final float TIME_TO_GAMEOVER = 7; // Tempo em segundos antes da próxima onda
 
     public GameOverState(GameStateManager gsm, MapManager mapManager, UIManager uiManager, SoundManager soundManager) {
         this.uiManager = uiManager;
@@ -72,6 +76,8 @@ public class GameOverState implements GameStateInterface {
         lastBlinkTime = TimeUtils.millis();  // Inicializa o tempo de piscar
         soundManager.stopMusic();
         soundManager.playGameOverMusic();
+        whatHighScore = 0;
+        gameoverTimer = 0;
     }
 
     @Override
@@ -79,7 +85,11 @@ public class GameOverState implements GameStateInterface {
         if (enterName) {
             setupUI();
         } else {
-            uiManager.displayGameOverInfo(mapManager.getSpaceship());
+            uiManager.displayGameOverInfo(mapManager.getSpaceship(), gameoverTimer, TIME_TO_GAMEOVER);
+            gameoverTimer += Gdx.graphics.getDeltaTime();
+            if (gameoverTimer >= TIME_TO_GAMEOVER) {
+                gameoverTimer = TIME_TO_GAMEOVER;
+            }
             handleInput();
         }
     }
@@ -98,10 +108,23 @@ public class GameOverState implements GameStateInterface {
     private void handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             // verificar se ja tem 10 scores salvos e se o score atual é menor que o ultimo salvo
-            if (scoreManager.isHighScore(mapManager.getSpaceship().getKillCount())) {
-                // enterName = true;
+            // whatHighScore = 0 -> não é highscore
+            // whatHighScore = 1 -> é highscore local
+            // whatHighScore = 2 -> é highscore global
+            // whatHighScore = 3 -> é highscore local e global
+            if (scoreManager.isLocalHighScore(mapManager.getSpaceship().getKillCount()) && scoreManager.isHighScore(mapManager.getSpaceship().getKillCount())) {
+                whatHighScore = 3;
                 setupUI();
+            } else if (scoreManager.isHighScore(mapManager.getSpaceship().getKillCount())) {
+                whatHighScore = 2;
+                setupUI();
+
+            } else if (scoreManager.isLocalHighScore(mapManager.getSpaceship().getKillCount())) {
+                whatHighScore = 1;
+                setupUI();
+
             } else {
+                whatHighScore = 0;
                 soundManager.stopGameOverMusic();
                 gsm.setState(State.MENU);
             }
@@ -140,6 +163,9 @@ public class GameOverState implements GameStateInterface {
             soundManager.stopGameOverMusic();
             gsm.setState(State.MENU);
             System.out.println("Score saved");
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
+            soundManager.stopGameOverMusic();
+            gsm.setState(State.MENU);
         }
 
         if (!enterName) {
@@ -148,6 +174,15 @@ public class GameOverState implements GameStateInterface {
     }
 
     private void saveScore(String playerName, int score) {
-        scoreManager.saveScore(playerName, score);
+        if (whatHighScore == 1) {
+            scoreManager.saveLocalScore(playerName, score);
+        } else if (whatHighScore == 2) {
+            scoreManager.saveGlobalScore(playerName, score);
+        } else if (whatHighScore == 3) {
+            scoreManager.saveLocalScore(playerName, score);
+            scoreManager.saveGlobalScore(playerName, score);
+        } else {
+            System.out.println("Score not saved");
+        }
     }
 }

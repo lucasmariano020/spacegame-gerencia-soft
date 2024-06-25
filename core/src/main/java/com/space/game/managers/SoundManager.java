@@ -73,6 +73,7 @@ public class SoundManager {
     }
 
     public void playNextTrack() {
+        if (playlist == null) return;
         if (playlist.isEmpty()) return;
 
         if (playlist.get(currentTrackIndex).isPlaying()) {
@@ -86,6 +87,7 @@ public class SoundManager {
     }
 
     public void playPreviousTrack() {
+        if (playlist == null) return;
         if (playlist.isEmpty()) return;
 
         if (playlist.get(currentTrackIndex).isPlaying()) {
@@ -99,6 +101,7 @@ public class SoundManager {
     }
 
     public void playMusic() {
+        if (playlist == null) return;
         if (playlist.isEmpty()) return;
         if (playlist.get(currentTrackIndex).isPlaying()) {
             playlist.get(currentTrackIndex).stop();
@@ -113,18 +116,21 @@ public class SoundManager {
     }
 
     public void stopMusic() {
+        if (playlist == null) return;
         if (!playlist.isEmpty() && playlist.get(currentTrackIndex).isPlaying()) {
             playlist.get(currentTrackIndex).stop();
         }
     }
 
     public void pauseMusic() {
+        if (playlist == null) return;
         if (!playlist.isEmpty() && playlist.get(currentTrackIndex).isPlaying()) {
             playlist.get(currentTrackIndex).pause();
         }
     }
 
     public void resumeMusic() {
+        if (playlist == null) return;
         if (!playlist.isEmpty() && !playlist.get(currentTrackIndex).isPlaying()) {
             playlist.get(currentTrackIndex).play();
         }
@@ -209,8 +215,13 @@ public class SoundManager {
         hitAlienSound.dispose();
         hitDeadAlienSound.dispose();
         menu_music.dispose();
-        for (Music music : playlist) {
-            music.dispose();
+        if (playlist == null) return;
+        else if (playlist.isEmpty()) return;
+        else {
+            for (Music music : playlist) {
+                music.dispose();
+            }
+
         }
 
     }

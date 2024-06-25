@@ -9,14 +9,14 @@ import com.badlogic.gdx.Input;
 import com.space.game.managers.GameStateManager.State;
 import com.space.game.managers.ScoreManager;
 
-public class ScoresState implements GameStateInterface {
+public class GlobalScoresState implements GameStateInterface {
 
     private UIManager uiManager;
     private GameStateManager gsm;
     private List<ScoreManager.ScoreEntry> scoresList;
     private ScoreManager scoreManager;
 
-    public ScoresState(GameStateManager gsm, UIManager uiManager) {
+    public GlobalScoresState(GameStateManager gsm, UIManager uiManager) {
         this.uiManager = uiManager;
         this.gsm = gsm;
         this.scoreManager = new ScoreManager();
@@ -26,19 +26,19 @@ public class ScoresState implements GameStateInterface {
     @Override
     public void enter() {
         // soundManager.playScoresMusic();
-        scoresList = scoreManager.loadScores();
+        scoresList = scoreManager.loadGlobalScores();
     }
 
     @Override
     public void update(SpriteBatch batch) {
-        uiManager.displayScores(scoresList);
+        uiManager.displayScores(scoresList, true);
         handleInput();
     }
 
 
     @Override
     public State getState() {
-        return State.SCORES;
+        return State.GLOBAL_SCORES;
     }
 
     @Override

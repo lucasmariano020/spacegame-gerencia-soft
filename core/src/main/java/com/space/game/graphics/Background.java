@@ -104,7 +104,7 @@ public class Background {
         
         batch.setColor(Color.WHITE); // Restaura a cor padrão
         batch.setColor(1, 1, 1, alpha_background);
-        batch.draw(texture, 0, 0, game.getWorldWidth(), game.getWorldHeight());// Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.draw(texture, 0, 0, game.getWorldWidth(), game.getWorldHeight());
         batch.setColor(Color.WHITE); // Restaura a cor padrão para evitar afetar outras texturas desenhadas na tela
 
         

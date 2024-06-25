@@ -46,7 +46,9 @@ public class LevelFactory {
             int enemyCount = 7;
             int ammunitions = 49;
             int kills = 0;
-            return new LevelConfig(ammunitions, kills, levelNumber, enemyCount, speed/factor_speed_initial, generateMovementPatterns(enemyCount));
+            int streak = 1;
+            int consecutiveKills = 0;
+            return new LevelConfig(ammunitions, kills, streak, consecutiveKills, levelNumber, enemyCount, speed/factor_speed_initial, generateMovementPatterns(enemyCount));
 
         } else {
             // Configuração para os níveis seguintes
@@ -56,6 +58,8 @@ public class LevelFactory {
 
             int ammunitions = SpaceGame.getGame().getMapManager().getSpaceship().getAmmunitions() + 7;
             int kills = SpaceGame.getGame().getMapManager().getSpaceship().getKillCount();
+            int streak = SpaceGame.getGame().getMapManager().getSpaceship().getStreakCount();
+            int consecutiveKills = SpaceGame.getGame().getMapManager().getSpaceship().getConsecutiveKills();
 
             // Aumenta a velocidade a cada nível par
             if (previousConfig.levelNumber % 2 == 0 && this.factor_speed_initial >= 15f){
@@ -67,7 +71,7 @@ public class LevelFactory {
             
             List<Integer> newMovementPatterns = generateMovementPatterns(newEnemyCount);
     
-            return new LevelConfig(ammunitions, kills, levelNumber, newEnemyCount, newEnemySpeed, newMovementPatterns);
+            return new LevelConfig(ammunitions, kills, streak, consecutiveKills, levelNumber, newEnemyCount, newEnemySpeed, newMovementPatterns);
         }
     }
 
