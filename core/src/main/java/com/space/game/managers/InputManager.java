@@ -35,7 +35,9 @@ public class InputManager extends InputAdapter {
                 spaceship.fire();
                 break;
             case Keys.P:
-                gsm.setState(State.PAUSED);
+                if(SpaceGame.getGame().getMapManager().isWaveActive()){
+                    gsm.setState(State.PAUSED);
+                }
                 break;
             case Keys.Q:
                 SpaceGame.getGame().getSoundManager().playPreviousTrack();

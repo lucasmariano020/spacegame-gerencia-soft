@@ -55,6 +55,8 @@ public class DynamicLevel implements Level {
         }else{
             spaceship.setAmmunitions(config.ammunitions);
         }
+        spaceship.setStreakCount(config.streak);
+        spaceship.setConsecutiveKills(config.consecutiveKills);
         spaceship.setKillCount(config.kills);
 
         lastKillCount = -1;

@@ -67,8 +67,15 @@ public class UIManager {
         font30.setColor(cian_color);
         font30.draw(batch, buttonText, buttonX, buttonY);
 
-        // Desenha o botão "Scores"
-        buttonText = "2. Scores";
+        // Desenha o botão "Global Scores"
+        buttonText = "2. Global Scores";
+        buttonLayout = new GlyphLayout(font30, buttonText);
+        buttonX = game.getWorldWidth() / const_larg;
+        buttonY = buttonY - buttonLayout.height*3;
+        font30.draw(batch, buttonText, buttonX, buttonY);
+
+        // Desenha o botão "Local Scores"
+        buttonText = "3. Local Scores";
         buttonLayout = new GlyphLayout(font30, buttonText);
         buttonX = game.getWorldWidth() / const_larg;
         buttonY = buttonY - buttonLayout.height*3;
@@ -148,30 +155,56 @@ public class UIManager {
 
     public void displayGameInfo(Spaceship spaceship) {
         // Exibir informações do jogo como munição e hordas
+        // Colocar cor branca
         font30.setColor(Color.WHITE);
         String ammoText = "AMMO: " + spaceship.getAmmunitions();
-        font30.draw(batch, ammoText, 10, 30);
+        GlyphLayout ammoLayout = new GlyphLayout(font30, ammoText);
+        float ammo_x = game.getWorldWidth() / const_larg;
+        float ammo_y = ammoLayout.height/2 + ammoLayout.height; // Posição inferior
+        font30.draw(batch, ammoText, ammo_x, ammo_y);
 
         String hordasText = "WAVE: " + hordas;
         GlyphLayout hordasLayout = new GlyphLayout(font30, hordasText);
-        font30.draw(batch, hordasText, game.getWorldWidth() - hordasLayout.width - 10, 30);
+        float hordas_x = (const_larg-1)*(game.getWorldWidth() / const_larg) - hordasLayout.width;
+        float hordas_y = hordasLayout.height/2 + hordasLayout.height; // Posição inferior
+        font30.draw(batch, hordasText, hordas_x, hordas_y);
 
+        // Posição do X igual, mas Y no topo
         String killsText = "SCORE: " + (spaceship.getKillCount());
         GlyphLayout killsLayout = new GlyphLayout(font30, killsText);
-        font30.draw(batch, killsText, game.getWorldWidth() / 2 - killsLayout.width / 2, 30); 
+        float kills_x = game.getWorldWidth() / const_larg;
+        float kills_y = game.getWorldHeight() - killsLayout.height;
+        font30.draw(batch, killsText, kills_x, kills_y); 
+
+        String streakText = "STREAK: x" + spaceship.getStreakCount();
+        GlyphLayout streakLayout = new GlyphLayout(font30, streakText);
+        float streak_x = (const_larg-1)*(game.getWorldWidth() / const_larg) - streakLayout.width;
+        float streak_y = game.getWorldHeight() - streakLayout.height;
+        font30.draw(batch, streakText, streak_x, streak_y);
+
     }
 
-    public void displayGameOverInfo(Spaceship spaceship) {
+    public void displayGameOverInfo(Spaceship spaceship, float gameoverTimer, float TIME_TO_GAMEOVER) {
+        // Calcular a porcentagem do tempo decorrido
+        float progress = gameoverTimer / TIME_TO_GAMEOVER;
+        float alpha;
+
+        alpha = progress;
+
+
         String gameOverText = "GAME OVER";
         GlyphLayout gameOverLayout = new GlyphLayout(font100, gameOverText);
         float gameOver_x = game.getWorldWidth() / 2 - gameOverLayout.width / 2;
         float gameOver_y = game.getWorldHeight() / 2 + gameOverLayout.height;
+        font100.setColor(0, 1, 1, alpha);
         font100.draw(batch, gameOverText, gameOver_x, gameOver_y);
+        font100.setColor(0, 1, 1, 1); // Restaurar a cor padrão
 
-        font30.setColor(cian_color);
         String restartText = "Press Enter to Continue";
         GlyphLayout restartLayout = new GlyphLayout(font30, restartText);
+        font30.setColor(0, 1, 1, alpha);
         font30.draw(batch, restartText, game.getWorldWidth() / 2 - restartLayout.width / 2, gameOver_y - gameOverLayout.height * 2);
+        font30.setColor(0, 1, 1, 1); // Restaurar a cor padrão
 
     }
 
@@ -185,50 +218,61 @@ public class UIManager {
         GlyphLayout restartLayout = new GlyphLayout(font30, restartText);
         font30.draw(batch, restartText, game.getWorldWidth() / 2 - restartLayout.width / 2, game.getWorldHeight() / 1.3f - restartLayout.height * 3);
 
-        String ammoText = "AMMO: ";
-        // GlyphLayout ammoLayout = new GlyphLayout(font30, ammoText);
-        font30.draw(batch, ammoText + spaceship.getAmmunitions(), 10, 30);
+        // Exibir informações do jogo como munição e hordas
+        String ammoText = "AMMO: " + spaceship.getAmmunitions();
+        GlyphLayout ammoLayout = new GlyphLayout(font30, ammoText);
+        float ammo_x = game.getWorldWidth() / const_larg;
+        float ammo_y = ammoLayout.height/2 + ammoLayout.height; // Posição inferior
+        font30.draw(batch, ammoText, ammo_x, ammo_y);
 
-        String hordeText = "WAVE: ";
-        GlyphLayout hordeLayout = new GlyphLayout(font30, hordeText + hordas);
-        font30.draw(batch, hordeText + hordas, game.getWorldWidth() - hordeLayout.width - 10, 30);
+        String hordasText = "WAVE: " + hordas;
+        GlyphLayout hordasLayout = new GlyphLayout(font30, hordasText);
+        float hordas_x = (const_larg-1)*(game.getWorldWidth() / const_larg) - hordasLayout.width;
+        float hordas_y = hordasLayout.height/2 + hordasLayout.height; // Posição inferior
+        font30.draw(batch, hordasText, hordas_x, hordas_y);
 
-        String killsText = "SCORE: ";
-        int totalKills = (spaceship.getKillCount());
-        GlyphLayout killsLayout = new GlyphLayout(font30, killsText + totalKills);
-        font30.draw(batch, killsText + totalKills, game.getWorldWidth() / 2 - killsLayout.width / 2, 30);
+        // Posição do X igual, mas Y no topo
+        String killsText = "SCORE: " + (spaceship.getKillCount());
+        GlyphLayout killsLayout = new GlyphLayout(font30, killsText);
+        float kills_x = game.getWorldWidth() / const_larg;
+        float kills_y = game.getWorldHeight() - killsLayout.height;
+        font30.draw(batch, killsText, kills_x, kills_y); 
+
+        String streakText = "STREAK: x" + spaceship.getStreakCount();
+        GlyphLayout streakLayout = new GlyphLayout(font30, streakText);
+        float streak_x = (const_larg-1)*(game.getWorldWidth() / const_larg) - streakLayout.width;
+        float streak_y = game.getWorldHeight() - streakLayout.height;
+        font30.draw(batch, streakText, streak_x, streak_y);
 
     }
 
-    public boolean displayNewLevel(boolean fadeIn, boolean fadeOut, float alpha, float fadeSpeed, float deltaTime) {
+    public void displayNewLevel(float waveTimer, float TIME_TO_WAVE) {
+        // Calcular a porcentagem do tempo decorrido
+        float progress = waveTimer / TIME_TO_WAVE;
+        float alpha;
+        
+        // Se a progressão está na primeira metade
+        if (progress <= 0.5f) {
+            // Interpolação linear de 0 a 1
+            alpha = progress * 2;
+        } else {
+            // Interpolação linear de 1 a 0
+            alpha = 1 - ((progress - 0.5f) * 2);
+        }
 
-        if (fadeIn) {
-            alpha += fadeSpeed * deltaTime;
-            // alpha = Math.min(alpha, 1f); // Limita o alpha para não ultrapassar 1
+
     
-            batch.setColor(1, 1, 1, alpha);
-            String newLevelText = "WAVE " + hordas;
-            GlyphLayout newLevelLayout = new GlyphLayout(font100, newLevelText);
-            font100.draw(batch, newLevelText, game.getWorldWidth() / 2 - newLevelLayout.width / 2, game.getWorldHeight() / 1.3f + newLevelLayout.height);
-            batch.setColor(1, 1, 1, 1);
+        // Definir a posição do texto
+        String newLevelText = "WAVE " + hordas;
+        GlyphLayout newLevelLayout = new GlyphLayout(font100, newLevelText);
+        float newLevel_x = game.getWorldWidth() / 2 - newLevelLayout.width / 2;
+        float newLevel_y = game.getWorldHeight() / 1.3f + newLevelLayout.height;
     
-            return alpha >= 1f; // isso é verdadeiro quando o alpha é maior ou igual a 1
-        }
+        // Desenhar o texto com a opacidade atualizada
+        font100.setColor(1, 1, 1, alpha);
+        font100.draw(batch, newLevelText, newLevel_x, newLevel_y);
+        font100.setColor(1, 1, 1, 1); // Restaurar a cor padrão
     
-        if (fadeOut) {
-            alpha -= fadeSpeed * deltaTime;
-            // alpha = Math.max(alpha, 0f); // Limita o alpha para não ser menor que 0
-    
-            batch.setColor(1, 1, 1, alpha);
-            String newLevelText = "WAVE " + hordas;
-            GlyphLayout newLevelLayout = new GlyphLayout(font100, newLevelText);
-            font100.draw(batch, newLevelText, game.getWorldWidth() / 2 - newLevelLayout.width / 2, game.getWorldHeight() / 1.3f + newLevelLayout.height);
-            batch.setColor(1, 1, 1, 1);
-    
-            return alpha <= 0f;
-        }
-    
-        return false;
         
     }
 
@@ -250,16 +294,28 @@ public class UIManager {
         float player_y = game.getWorldHeight() / 2;
         font30.draw(batch, playerText, player_x, player_y);
     
-        String continueText = "Press Enter to Continue";
+        String continueText = "Enter. Save";
         GlyphLayout continueLayout = new GlyphLayout(font30, continueText);
-        font30.draw(batch, continueText, game.getWorldWidth() / 2 - continueLayout.width / 2, player_y - continueLayout.height * 3);
+        float continue_x = (const_larg-1)*(game.getWorldWidth() / const_larg) - continueLayout.width;
+        float continue_y = continueLayout.height/2 + continueLayout.height;
+        font30.draw(batch, continueText, continue_x, continue_y);
+
+        String cancelText = "0. Cancel";
+        GlyphLayout cancelLayout = new GlyphLayout(font30, cancelText);
+        float cancel_x = game.getWorldWidth() / const_larg;
+        float cancel_y = cancelLayout.height/2 + cancelLayout.height;
+        font30.draw(batch, cancelText, cancel_x, cancel_y);
     }
 
 
-    public void displayScores(List<ScoreManager.ScoreEntry> scoresList) {
+    public void displayScores(List<ScoreManager.ScoreEntry> scoresList, boolean isGlobal) {
         float scaleFactor = ConfigUtils.calcularFatorDeEscala();
-        
-        String title = "HIGH SCORES";
+        String title;
+        if (isGlobal) {
+            title = "GLOBAL HIGH SCORES";
+        } else {
+            title = "LOCAL HIGH SCORES";
+        }
         GlyphLayout titleLayout = new GlyphLayout(font100, title);
         float title_x = game.getWorldWidth() / const_larg;
         float title_y = game.getWorldHeight() / 1.2f + titleLayout.height * scaleFactor;

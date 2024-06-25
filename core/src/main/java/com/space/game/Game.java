@@ -108,5 +108,9 @@ public class Game {
         return extendViewport.getWorldHeight();
     }
 
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
     
 }

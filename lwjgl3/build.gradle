@@ -31,6 +31,7 @@ dependencies {
   implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
   implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
   implementation project(':core')
+  implementation 'org.mongodb:mongodb-driver-sync:5.1.1'
 }
 
 def jarName = "${appName}-${version}.jar"
@@ -76,10 +77,11 @@ construo {
     version.set("0.0.0")
 
     targets.configure {
+      // Copiar a pasta jdk baixada manualmente e substituir no local dessa que foi criada (por motivos de força maior):
       create("linuxX64", Target.Linux) {
         architecture.set(Target.Architecture.X86_64)
         jdkUrl.set("https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11%2B9/OpenJDK17U-jdk_x64_linux_hotspot_17.0.11_9.tar.gz")
-      }
+      } 
       create("macM1", Target.MacOs) {
         architecture.set(Target.Architecture.AARCH64)
         jdkUrl.set("https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11%2B9/OpenJDK17U-jdk_aarch64_mac_hotspot_17.0.11_9.tar.gz")
@@ -96,11 +98,16 @@ construo {
         // Optional: icon for macOS
         macIcon.set(project.file("icons/logo.icns"))
       }
+
+      // Copiar a pasta jdk baixada manualmente e substituir no local dessa que foi criada (por motivos de força maior):
       create("winX64", Target.Windows) {
         architecture.set(Target.Architecture.X86_64)
         jdkUrl.set("https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11%2B9/OpenJDK17U-jdk_x64_windows_hotspot_17.0.11_9.zip")
       }
+      
     }
+
+    
 }
 
 // Equivalent to the jar task; here for compatibility with gdx-setup.

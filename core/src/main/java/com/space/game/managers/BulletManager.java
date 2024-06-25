@@ -41,9 +41,14 @@ public class BulletManager {
             Bullet bullet = bulletIterator.next();
             bullet.update();
             // Remove bullets that are off-screen or have collided
-            if (bullet.shouldRemove() || bullet.getPosition().x < 0-SpaceGame.getGame().getWorldWidth()/2 || 
+            if (bullet.getPosition().x < 0-SpaceGame.getGame().getWorldWidth()/2 || 
             bullet.getPosition().x > SpaceGame.getGame().getWorldWidth()*1.5f || bullet.getPosition().y < 0 - SpaceGame.getGame().getWorldHeight()/2 || 
             bullet.getPosition().y > SpaceGame.getGame().getWorldHeight()*1.5f) {
+                bulletIterator.remove();
+                bullet.dispose();
+                SpaceGame.getGame().getMapManager().getSpaceship().setStreakCount(1);
+                SpaceGame.getGame().getMapManager().getSpaceship().setConsecutiveKills(0);
+            } else if (bullet.shouldRemove() ){
                 bulletIterator.remove();
                 bullet.dispose();
             }

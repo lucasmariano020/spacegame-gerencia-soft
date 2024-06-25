@@ -52,7 +52,9 @@ public class MenuState implements GameStateInterface {
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
                 isPlaying = true;
             } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
-                gsm.setState(State.SCORES);
+                gsm.setState(State.GLOBAL_SCORES);
+            } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
+                gsm.setState(State.LOCAL_SCORES);
             } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
                 System.out.println("Key 0 pressed, exiting the game.");  // Depuração
                 Gdx.app.exit();
