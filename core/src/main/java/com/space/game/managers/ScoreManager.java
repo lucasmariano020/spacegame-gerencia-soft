@@ -31,7 +31,7 @@ import static com.mongodb.client.model.Filters.eq;
 public class ScoreManager {
 
     // pegar password no drive
-    private static final String CONNECTION_STRING = "mongodb+srv://eduardows:<password>@cluster0.bt0tzst.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+    private static final String CONNECTION_STRING = "---";
     private static final String DATABASE_NAME = "game_database";
     private static final String COLLECTION_NAME = "scores";
     private static final String FILE_PATH = "data/scores.csv";
@@ -39,6 +39,8 @@ public class ScoreManager {
     private MongoClient mongoClient;
     private MongoDatabase database;
     private MongoCollection<Document> collection;
+
+    private boolean error;
 
     public static class ScoreEntry {
         public String playerName;
@@ -64,46 +66,59 @@ public class ScoreManager {
             database = mongoClient.getDatabase(DATABASE_NAME);
             collection = database.getCollection(COLLECTION_NAME);
             System.out.println("Successfully connected to MongoDB!");
+            this.error = false;
+        } catch (MongoException e) {
+            e.printStackTrace();
+            this.error = true;
+        }
+    }
+
+    public void saveGlobalScore(String playerName, int score) {
+        try{
+            List<ScoreEntry> scoresList = loadGlobalScores();
+
+            if (scoresList.size() < 10 || score > scoresList.get(scoresList.size() - 1).score) {
+                scoresList.add(new ScoreEntry(playerName, score));
+            }
+
+            scoresList.sort(Comparator.comparingInt(o -> -o.score));
+
+            if (scoresList.size() > 10) {
+                scoresList = scoresList.subList(0, 10);
+            }
+
+            collection.drop(); // Clear the collection before inserting new scores
+            for (ScoreEntry entry : scoresList) {
+                Document doc = new Document("playerName", entry.playerName)
+                        .append("score", entry.score);
+                collection.insertOne(doc);
+            }
+            System.out.println("Global score of " + score + " saved for player " + playerName);
         } catch (MongoException e) {
             e.printStackTrace();
         }
     }
 
-    public void saveGlobalScore(String playerName, int score) {
-        List<ScoreEntry> scoresList = loadGlobalScores();
-
-        if (scoresList.size() < 10 || score > scoresList.get(scoresList.size() - 1).score) {
-            scoresList.add(new ScoreEntry(playerName, score));
-        }
-
-        scoresList.sort(Comparator.comparingInt(o -> -o.score));
-
-        if (scoresList.size() > 10) {
-            scoresList = scoresList.subList(0, 10);
-        }
-
-        collection.drop(); // Clear the collection before inserting new scores
-        for (ScoreEntry entry : scoresList) {
-            Document doc = new Document("playerName", entry.playerName)
-                    .append("score", entry.score);
-            collection.insertOne(doc);
-        }
-        System.out.println("Global score of " + score + " saved for player " + playerName);
-    }
-
     public List<ScoreEntry> loadGlobalScores() {
-        SpaceGame.getLogger().debug("Loading global scores");
-        List<ScoreEntry> scoresList = new ArrayList<>();
-        Consumer<Document> processDocument = document -> {
-            String playerName = document.getString("playerName");
-            int score = document.getInteger("score");
-            scoresList.add(new ScoreEntry(playerName, score));
-        };
-        collection.find().forEach(processDocument);
-        scoresList.sort(Comparator.comparingInt(o -> -o.score)); // Ordenate in descending order
-        SpaceGame.getLogger().debug("Global scores loaded");
-        // SpaceGame.getLogger().error("Error loading global scores", new Exception("Test exception"));
-        return scoresList;
+        try{
+            SpaceGame.getLogger().debug("Loading global scores");
+            List<ScoreEntry> scoresList = new ArrayList<>();
+            Consumer<Document> processDocument = document -> {
+                String playerName = document.getString("playerName");
+                int score = document.getInteger("score");
+                scoresList.add(new ScoreEntry(playerName, score));
+            };
+            collection.find().forEach(processDocument);
+            scoresList.sort(Comparator.comparingInt(o -> -o.score)); // Ordenate in descending order
+            SpaceGame.getLogger().debug("Global scores loaded");
+            // SpaceGame.getLogger().error("Error loading global scores", new Exception("Test exception"));
+            this.error = false;
+            return scoresList;
+        } catch (MongoException e) {
+            e.printStackTrace();
+            this.error = true;
+            return new ArrayList<>();
+        }
     }
 
     public void saveLocalScore(String playerName, int score) {
@@ -175,5 +190,9 @@ public class ScoreManager {
         if (mongoClient != null) {
             mongoClient.close();
         }
+    }
+
+    public boolean isError() {
+        return error;
     }
 }

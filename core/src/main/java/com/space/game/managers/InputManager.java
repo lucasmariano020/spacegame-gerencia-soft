@@ -25,6 +25,15 @@ public class InputManager extends InputAdapter {
             return false;
         }
         switch (keycode) {
+            //virar caso o jogador pressione a seta pra esquerda
+            case Keys.LEFT:
+                turningLeft = true;
+                break;
+            //virar caso o jogador pressione a seta pra direita
+            case Keys.RIGHT:
+                turningRight = true;
+                break;
+
             case Keys.A:
                 turningLeft = true;
                 break;
@@ -32,7 +41,9 @@ public class InputManager extends InputAdapter {
                 turningRight = true;
                 break;
             case Keys.SPACE:
-                spaceship.fire();
+                if(SpaceGame.getGame().getMapManager().isWaveActive()){
+                    spaceship.fire();
+                }
                 break;
             case Keys.P:
                 if(SpaceGame.getGame().getMapManager().isWaveActive()){
@@ -62,6 +73,12 @@ public class InputManager extends InputAdapter {
             return false;
         }
         switch (keycode) {
+            case Keys.LEFT:
+                turningLeft = false;
+                break;
+            case Keys.RIGHT:
+                turningRight = false;
+                break;
             case Keys.A:
                 turningLeft = false;
                 break;
