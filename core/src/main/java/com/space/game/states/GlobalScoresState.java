@@ -31,7 +31,13 @@ public class GlobalScoresState implements GameStateInterface {
 
     @Override
     public void update(SpriteBatch batch) {
-        uiManager.displayScores(scoresList, true);
+        if (scoreManager.isError()) {
+            uiManager.displayError("Error loading global scores, please contact the developer: eduardorr.ws@gmail.com");
+
+        }
+        else {
+            uiManager.displayScores(scoresList, true);
+        }
         handleInput();
     }
 

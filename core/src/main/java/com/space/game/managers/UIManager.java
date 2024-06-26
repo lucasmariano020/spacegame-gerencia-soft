@@ -117,7 +117,7 @@ public class UIManager {
     
         // Controles do jogo
         String[] actions = { "Turn Left", "Turn Right", "Shoot", "Pause Game", "Prev. Song", "Pause Song", "Next Song"};
-        String[] controls = { "A", "D", "Spacebar", "P", "Q", "W", "E"};
+        String[] controls = { "A | Left Arrow", "D | Right Arrow", "Spacebar", "P", "Q", "W", "E"};
     
         // Desenhar controles
         float y = startY;
@@ -156,7 +156,7 @@ public class UIManager {
     public void displayGameInfo(Spaceship spaceship) {
         // Exibir informações do jogo como munição e hordas
         // Colocar cor branca
-        font30.setColor(Color.WHITE);
+        font30.setColor(cian_color);
         String ammoText = "AMMO: " + spaceship.getAmmunitions();
         GlyphLayout ammoLayout = new GlyphLayout(font30, ammoText);
         float ammo_x = game.getWorldWidth() / const_larg;
@@ -182,6 +182,20 @@ public class UIManager {
         float streak_y = game.getWorldHeight() - streakLayout.height;
         font30.draw(batch, streakText, streak_x, streak_y);
 
+    }
+
+    public void displayError(String error) {
+        GlyphLayout errorLayout = new GlyphLayout(font30, error);
+        float error_x = game.getWorldWidth() / 2 - errorLayout.width / 2;
+        float error_y = game.getWorldHeight() / 2 + errorLayout.height;
+        font30.draw(batch, error, error_x, error_y);
+
+        String backText = "Backspace. Back";
+        GlyphLayout backLayout = new GlyphLayout(font30, backText);
+        // float back_x = game.getWorldWidth() / 2 - game.getWorldWidth() / 4 - backLayout.width / 2;
+        float back_x = game.getWorldWidth() / 2 - backLayout.width / 2;
+        float back_y = game.getWorldHeight() * 0.1f;
+        font30.draw(batch, backText, back_x, back_y);
     }
 
     public void displayGameOverInfo(Spaceship spaceship, float gameoverTimer, float TIME_TO_GAMEOVER) {
