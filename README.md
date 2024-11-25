@@ -6,11 +6,12 @@
 
 [Build Procedures](#buildando-o-projeto-no-windows-utilizando-o-vscode)
 
-## Grupo 05
+![image](https://github.com/user-attachments/assets/53fd3d07-1c50-4d23-84b3-4fc6761c9296)
 
-- Eduardo Ribeiro Rodrigues - 13696679
-- Guilherme Henrique Bueno - 14677335
-- Isabela Oliveira Costa - 10747972
+![image](https://github.com/user-attachments/assets/d49a7b8d-c179-42ca-9e60-48720ebb544f)
+
+![image](https://github.com/user-attachments/assets/fca764ad-4eac-467d-9e96-39b641e338f0)
+
 
 ## Requisitos
 
